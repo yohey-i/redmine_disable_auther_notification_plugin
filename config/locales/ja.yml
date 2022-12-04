@@ -1,0 +1,4 @@
+ja:
+  plugin_settings: 'プラグインの設定'
+  disable_notifications_to_issue_auther: 'チケット作成者へのメール通知を無効化'
+  add_auther_to_watchers_on_new_issue: '新規チケット作成時にチケット作成者をウォッチャー登録'

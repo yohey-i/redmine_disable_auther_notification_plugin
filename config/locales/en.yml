@@ -1,0 +1,4 @@
+en:
+  plugin_settings: 'Plugin settings'
+  disable_notifications_to_issue_auther: 'Disable mail notifications to the issue auther'
+  add_auther_to_watchers_on_new_issue: 'Add the auther to watchers on a new issue'

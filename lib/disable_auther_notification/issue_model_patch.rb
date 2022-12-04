@@ -11,22 +11,28 @@ module DisableAutherNotification
         alias_method :notified_users, :notified_users_with_disable_auther_notification
       end
     end
+
     module InstanceMethods
       # Add the auther (current user) to watchers on a new issue
-      def initialize_with_disable_auther_notification(attributes=nil, *args)
+      def initialize_with_disable_auther_notification(_attributes = nil, *_args)
         initialize_without_disable_auther_notification
-        if new_record? && User.current.login?
-          self.watcher_user_ids = [User.current.id]
+        if Setting.plugin_redmine_disable_auther_notification_plugin['add_auther_to_watchers_on_new_issue']
+          if new_record? && User.current.login?
+            self.watcher_user_ids = [User.current.id]
+          end
         end
       end
+
       # Disable notifications to the issue auther
       def notified_users_with_disable_auther_notification
         notified = notified_users_without_disable_auther_notification # author, assignee, and previous assignee
-        notified.delete(self.author)
-        return notified
+        if Setting.plugin_redmine_disable_auther_notification_plugin['disable_notifications_to_issue_auther']
+          notified.delete(author)
+        end
+        notified
       end
     end
   end
 end
 
-Issue.send(:include, DisableAutherNotification::IssueModelPatch)
+Issue.include DisableAutherNotification::IssueModelPatch

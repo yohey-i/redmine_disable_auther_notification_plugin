@@ -1,0 +1,11 @@
+<fieldset>
+  <legend><%= l(:plugin_settings) %></legend>
+  <p>
+    <label><%= l(:disable_notifications_to_issue_auther) %></label>
+    <%= check_box_tag 'settings[disable_notifications_to_issue_auther]', 1, @settings['disable_notifications_to_issue_auther'] %>
+  </p>
+  <p>
+    <label><%= l(:add_auther_to_watchers_on_new_issue) %></label>
+    <%= check_box_tag 'settings[add_auther_to_watchers_on_new_issue]', 1, @settings['add_auther_to_watchers_on_new_issue'] %>
+  </p>
+</fieldset>
