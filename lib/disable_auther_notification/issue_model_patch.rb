@@ -25,10 +25,19 @@ module DisableAutherNotification
 
       # Disable notifications to the issue auther
       def notified_users_with_disable_auther_notification
-        notified = notified_users_without_disable_auther_notification # author, assignee, and previous assignee
-        if Setting.plugin_redmine_disable_auther_notification_plugin['disable_notifications_to_issue_auther']
-          notified.delete(author)
-        end
+        # disable author notification
+        notified_author = Setting.plugin_redmine_disable_auther_notification_plugin['disable_notifications_to_issue_auther'] ? nil : author
+        # Author and assignee are always notified unless they have been
+        # locked or don't want to be notified
+        notified = [notified_author, assigned_to, previous_assignee].compact.uniq
+        notified = notified.map {|n| n.is_a?(Group) ? n.users : n}.flatten
+        notified.uniq!
+        notified = notified.select {|u| u.active? && u.notify_about?(self)}
+
+        notified += project.notified_users
+        notified.uniq!
+        # Remove users that can not view the issue
+        notified.reject! {|user| !visible?(user)}
         notified
       end
     end
