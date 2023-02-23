@@ -10,3 +10,7 @@ Redmin Plugin to disable notifications to the issue auther / add the auther to w
    ```
 2. Restart the Redmine
 3. Visit the plugin setting page and **enable features**.
+
+# Supported Redmine version
+
+v4.x and v5.0.x
