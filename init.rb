@@ -1,5 +1,5 @@
 require 'redmine'
-require_dependency 'disable_auther_notification/issue_model_patch'
+require_dependency File.expand_path('../lib/disable_auther_notification/issue_model_patch', __FILE__)
 
 Redmine::Plugin.register :redmine_disable_auther_notification_plugin do
   name 'Redmine Disable Auther Notification Plugin'
